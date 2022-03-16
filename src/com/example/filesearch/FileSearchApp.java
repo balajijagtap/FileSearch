@@ -31,11 +31,20 @@ public class FileSearchApp {
 	}
 
 	public void walkDirectory(String path) {
-		System.out.println("walkDirectory: " + path);
-		System.out.println("regex: " + regex);
-		System.out.println("zipfile: " + zipFileName);
-//		searchFile(null);
-//		addFileToZip(null);
+		File dir = new File(path);
+		File[] files = dir.listFiles();
+
+		for (File file : files) {
+			if (file.isDirectory()) {
+				walkDirectory(file.getAbsolutePath());
+			} else {
+				processFile(file);
+			}
+		}
+	}
+
+	public void processFile(File file) {
+		System.out.println(file.getAbsolutePath());
 	}
 
 	public void searchFile(File file) {
